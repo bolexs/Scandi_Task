@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AddProduct from "./AddProduct";
+import AddProduct from "./components/AddProduct";
 import "./App.css";
 
 function App() {
