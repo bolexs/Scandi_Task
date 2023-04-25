@@ -8,7 +8,6 @@ abstract class Product
     protected $name;
     protected $price;
     protected $type;
-    protected $attrs;
     protected $db;
 
     public function __construct($input)
@@ -39,23 +38,19 @@ abstract class Product
     {
         return $this->type;
     }
+    
+    
 
-    public function getAttrs()
-    {
-        return $this->attrs;
-    }
-
-    public  function saveProduct()
-    {
-        $query = "INSERT INTO Products (sku, name, price, type, attrs) VALUES (:sku, :name, :price, :type, :attrs)";
-        $this->db->query($query);
-        $this->db->bind(':sku', $this->getSku());
-        $this->db->bind(':name', $this->getName());
-        $this->db->bind(':price', $this->getPrice());
-        $this->db->bind('type', $this->getType());
-        $this->db->bind(':attrs', $this->getAttrs());
-        $this->db->execute();
-    }
+    // public  function saveProduct()
+    // {
+    //     $query = "INSERT INTO Products (sku, name, price, type) VALUES (:sku, :name, :price, :type)";
+    //     $this->db->query($query);
+    //     $this->db->bind(':sku', $this->getSku());
+    //     $this->db->bind(':name', $this->getName());
+    //     $this->db->bind(':price', $this->getPrice());
+    //     $this->db->bind(':type', $this->getType());
+    //     $this->db->execute();
+    // }
 
     public static function getAllProducts()
     {
