@@ -69,7 +69,7 @@ abstract class Product
         return $db->fetchSingle();
     }
 
-    public function deleteProducts($input)
+    public static function deleteProducts($input)
     {
         $skus = is_array($input) ? $input : [$input];
         $db = new Database();
