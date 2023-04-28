@@ -49,10 +49,10 @@ export default function ProductList() {
             <h1>Product List</h1>
             <div className="button-container">
               <button className="button">
-                <Link to="/add-product">Add</Link>
+                <Link to="/add-product">ADD</Link>
               </button>
-              <button className="button" onClick={massDelete}>
-                Mass delete
+              <button className="button" id="delete-product-btn" onClick={massDelete}>
+                MASS DELETE
               </button>
             </div>
           </div>
@@ -94,6 +94,7 @@ function Product({ data, select, selected }) {
     >
       <input
         type="checkbox"
+        className="delete-checkbox"
         checked={selected}
         onChange={(e) => {
           select(e.target.checked, data.sku);
