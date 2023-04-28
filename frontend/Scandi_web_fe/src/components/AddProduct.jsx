@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import "./AddProduct.css";
 export default function AddProduct() {
   const [selected, setSelected] = useState("");
@@ -14,105 +16,123 @@ export default function AddProduct() {
   const [bookOption, setBookOption] = useState("");
   const [dvdOption, setDVDOption] = useState("");
 
+  function addProduct() {
+    console.log("sku: ", sku);
+    console.log("name: ", name);
+    console.log("price: ", price);
+    console.log("switcher:", switcher);
+    const data = { name, sku, price, type: switcher };
+    let attribute = "";
+    if (switcher === "book") {
+      console.log("BookOption:", bookOption);
+      data.weight = Number(bookOption);
+    } else if (switcher === "dvd") {
+      console.log("dvdOption:", dvdOption);
+      data.size = Number(dvdOption);
+    } else if (switcher === "furniture") {
+      console.log("furniture: ", furniture);
+      data.height = Number(furniture.height);
+      data.width = Number(furniture.width);
+      data.length = Number(furniture.length);
+    }
+    const url = "http://localhost/beginner_php/Scandi_web_Task/insert.php";
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
   return (
-    <div className="container">
-      <div className="header">
-        <div>
-          <h1>Product Add</h1>
-          <div className="button-container">
-            <button
-              onClick={() => {
-                console.log("sku: ", sku);
-                console.log("name: ", name);
-                console.log("price: ", price);
-                console.log("switcher:", switcher);
-                if (switcher === "Books") {
-                  console.log("BookOption:", bookOption);
-                } else if (switcher === "DVD") {
-                  console.log("dvdOption:", dvdOption);
-                } else {
-                  console.log("furniture: ", furniture);
-                }
-              }}
-              className="button"
-            >
-              Save
-            </button>
-            <button className="button">Cancel</button>
+    <main style={{ width: "100vw" }}>
+      <div className="container">
+        <div className="header">
+          <div>
+            <h1>Product Add</h1>
+            <div className="button-container">
+              <button onClick={addProduct} className="button">
+                Save
+              </button>
+              <button className="button">
+                <Link to="/">Cancel</Link>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <form className="form" id="product_form">
-        <div className="input-container">
-          <label>SKU</label>
-          <input
-            id="sku"
-            type="text"
-            value={sku}
-            onChange={(e) => setSku(e.target.value)}
-          />
-        </div>
-        <div className="input-container">
-          <label>Name</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="input-container">
-          <label>Price ($)</label>
-          <input
-            id="price"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div className="input-container">
-          <select
-            id="productType"
-            value={switcher}
-            onChange={(e) => setSwitcher(e.target.value)}
-          >
-            <option value="">Type switcher</option>
-            <option value="DVD">DVD</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Books">Books</option>
-          </select>
-          {switcher === "DVD" && (
-            <DVDOptions val={dvdOption} update={setDVDOption} />
-          )}
-          {switcher === "Furniture" && (
-            <FurnitureOptions
-              val={furniture}
-              update={(v) => {
-                setFurniture(v);
-              }}
+        <form className="form" id="product_form">
+          <div className="input-container">
+            <label>SKU</label>
+            <input
+              id="sku"
+              type="text"
+              value={sku}
+              onChange={(e) => setSku(e.target.value)}
             />
-          )}
-          {switcher === "Books" && (
-            <BooksOptions val={bookOption} update={setBookOption} />
-          )}
-        </div>
-      </form>
-    </div>
+          </div>
+          <div className="input-container">
+            <label>Name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <label>Price ($)</label>
+            <input
+              id="price"
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <div className="switch-container">
+            <select
+              id="productType"
+              value={switcher}
+              onChange={(e) => setSwitcher(e.target.value)}
+            >
+              <option value="">Type</option>
+              <option value="dvd">DVD</option>
+              <option value="furniture">Furniture</option>
+              <option value="book">Books</option>
+            </select>
+            {switcher === "dvd" && (
+              <DVDOptions val={dvdOption} update={setDVDOption} />
+            )}
+            {switcher === "furniture" && (
+              <FurnitureOptions
+                val={furniture}
+                update={(v) => {
+                  setFurniture(v);
+                }}
+              />
+            )}
+            {switcher === "book" && (
+              <BooksOptions val={bookOption} update={setBookOption} />
+            )}
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
 
 function DVDOptions({ val, update }) {
   return (
-    <div>
-      <div className="input-container">
-        <label>Size (MB):</label>
+    <div className="option-container">
+      <label>Size (MB):</label>
+      <div>
         <input
           id="size"
           type="number"
           value={val}
           onChange={(e) => update(e.target.value)}
         />
-        <span>Please provide the size in MB</span>
+        <div>Please provide the size in MB</div>
       </div>
     </div>
   );
@@ -121,35 +141,43 @@ function DVDOptions({ val, update }) {
 function FurnitureOptions({ val, update }) {
   return (
     <div>
-      <div className="input-container">
+      <div className="option-container">
         <label>Height (cm):</label>
-        <input
-          id="height"
-          type="number"
-          value={val.height}
-          onChange={(e) => update({ ...val, height: e.target.value })}
-        />
-        <span>Please provide the height in cm</span>
+
+        <div>
+          <input
+            id="height"
+            type="number"
+            value={val.height}
+            onChange={(e) => update({ ...val, height: e.target.value })}
+          />
+          <p>Please provide the height in cm</p>
+        </div>
       </div>
-      <div className="input-container">
+      <div className="option-container">
         <label>Width (cm):</label>
-        <input
-          id="size"
-          type="number"
-          value={val.width}
-          onChange={(e) => update({ ...val, width: e.target.value })}
-        />
-        <span>Please provide the width in cm</span>
+
+        <div>
+          <input
+            id="size"
+            type="number"
+            value={val.width}
+            onChange={(e) => update({ ...val, width: e.target.value })}
+          />
+          <p>Please provide the width in cm</p>
+        </div>
       </div>
-      <div className="input-container">
+      <div className="option-container">
         <label>Length (cm):</label>
-        <input
-          id="length"
-          type="number"
-          value={val.length}
-          onChange={(e) => update({ ...val, length: e.target.value })}
-        />
-        <span>Please provide the length in cm</span>
+        <div className="">
+          <input
+            id="length"
+            type="number"
+            value={val.length}
+            onChange={(e) => update({ ...val, length: e.target.value })}
+          />
+          <p>Please provide the length in cm</p>
+        </div>
       </div>
     </div>
   );
@@ -157,16 +185,16 @@ function FurnitureOptions({ val, update }) {
 
 function BooksOptions({ val, update }) {
   return (
-    <div>
-      <div className="input-container">
-        <label>Weight (KG):</label>
+    <div className="option-container">
+      <label>Weight (KG):</label>
+      <div>
         <input
           id="weight"
           type="number"
           value={val}
           onChange={(e) => update(e.target.value)}
         />
-        <span>Please provide the weight in KG</span>
+        <p>Please provide the weight in KG</p>
       </div>
     </div>
   );

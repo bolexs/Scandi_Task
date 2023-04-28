@@ -7,9 +7,7 @@ function App() {
 
   return (
     <div className="App">
-      <main style={{ width: "100vw" }}>
-        <AddProduct />
-      </main>
+      <main style={{ width: "100vw" }}></main>
     </div>
   );
 }

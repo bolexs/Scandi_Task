@@ -6,6 +6,10 @@
   align-items: center;
   margin-inline: auto;
 }
+a {
+  appearance: none;
+  text-decoration: none;
+}
 .header {
   width: 100%;
   border-bottom: 2px solid black;
@@ -41,6 +45,12 @@
 .button:hover {
   border: 2px solid black;
 }
+.switch-container {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  gap: 10px;
+}
 
 .input-container {
   display: flex;
@@ -52,4 +62,14 @@
   appearance: none;
   border: 1px solid black;
   padding: 5px 8px;
+}
+.option-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.option-container > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
