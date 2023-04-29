@@ -17,20 +17,13 @@ export default function AddProduct() {
   const [dvdOption, setDVDOption] = useState("");
 
   function addProduct() {
-    console.log("sku: ", sku);
-    console.log("name: ", name);
-    console.log("price: ", price);
-    console.log("switcher:", switcher);
     const data = { name, sku, price, type: switcher };
     let attribute = "";
     if (switcher === "book") {
-      console.log("BookOption:", bookOption);
       data.weight = Number(bookOption);
     } else if (switcher === "dvd") {
-      console.log("dvdOption:", dvdOption);
       data.size = Number(dvdOption);
     } else if (switcher === "furniture") {
-      console.log("furniture: ", furniture);
       data.height = Number(furniture.height);
       data.width = Number(furniture.width);
       data.length = Number(furniture.length);
@@ -39,7 +32,7 @@ export default function AddProduct() {
     axios
       .post(url, data)
       .then((res) => {
-        console.log(res);
+        window.location = window.location.origin;
       })
       .catch((e) => {
         console.log(e);
@@ -55,9 +48,9 @@ export default function AddProduct() {
               <button onClick={addProduct} className="button">
                 Save
               </button>
-              <button className="button">
-                <Link to="/">Cancel</Link>
-              </button>
+              <Link to="/" className="button">
+                Cancel
+              </Link>
             </div>
           </div>
         </div>

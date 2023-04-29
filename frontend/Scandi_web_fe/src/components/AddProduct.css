@@ -36,8 +36,10 @@ a {
   gap: 10px;
 }
 .button {
-  padding: 5px 15px;
   border: 1px solid black;
+  padding: 7px 10px;
+  background-color: lightgrey;
+  font-size: 14px;
   border-radius: 15px;
   cursor: pointer;
 }

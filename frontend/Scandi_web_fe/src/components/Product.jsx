@@ -5,19 +5,17 @@ import axios from "axios";
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState([]);
-  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost/beginner_php/Scandi_web_Task/display.php")
       .then((res) => {
-        
         setProducts(res.data.productResult);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [toggle]);
+  }, []);
 
   function select(checked, id) {
     if (checked) {
@@ -33,8 +31,8 @@ export default function ProductList() {
         checkBox: selected,
       })
       .then((res) => {
-        
-        setToggle(!toggle);
+        setProducts(products.filter((p) => !selected.includes(p.sku)));
+        setSelected([]);
       })
       .catch((err) => {
         console.log(err);
@@ -48,10 +46,14 @@ export default function ProductList() {
           <div>
             <h1>Product List</h1>
             <div className="button-container">
-              <button className="button">
-                <Link to="/add-product">ADD</Link>
-              </button>
-              <button className="button" id="delete-product-btn" onClick={massDelete}>
+              <Link to="/add-product" className="button">
+                ADD
+              </Link>
+              <button
+                className="button"
+                id="delete-product-btn"
+                onClick={massDelete}
+              >
                 MASS DELETE
               </button>
             </div>
