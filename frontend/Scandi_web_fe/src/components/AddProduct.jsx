@@ -28,7 +28,7 @@ export default function AddProduct() {
       data.width = Number(furniture.width);
       data.length = Number(furniture.length);
     }
-    const url = "http://localhost/beginner_php/Scandi_web_Task/insert.php";
+    const url = "https://bolu-scandi-task.000webhostapp.com/insert.php";
     axios
       .post(url, data)
       .then((res) => {
