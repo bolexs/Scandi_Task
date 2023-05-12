@@ -28,7 +28,7 @@ export default function AddProduct() {
       data.width = Number(furniture.width);
       data.length = Number(furniture.length);
     }
-    const url = "https://bolu-scandi-task.000webhostapp.com/insert.php";
+    const url = "https://bolex-scandi-task.000webhostapp.com/insert.php";
     axios
       .post(url, data)
       .then((res) => {
@@ -91,7 +91,7 @@ export default function AddProduct() {
               <option value="">Type</option>
               <option value="dvd">DVD</option>
               <option value="furniture">Furniture</option>
-              <option value="book">Books</option>
+              <option value="book">Book</option>
             </select>
             {switcher === "dvd" && (
               <DVDOptions val={dvdOption} update={setDVDOption} />
@@ -152,7 +152,7 @@ function FurnitureOptions({ val, update }) {
 
         <div>
           <input
-            id="size"
+            id="width"
             type="number"
             value={val.width}
             onChange={(e) => update({ ...val, width: e.target.value })}

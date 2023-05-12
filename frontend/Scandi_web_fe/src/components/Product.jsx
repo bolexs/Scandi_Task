@@ -8,7 +8,7 @@ export default function ProductList() {
 
   useEffect(() => {
     axios
-      .get("https://bolu-scandi-task.000webhostapp.com/display.php")
+      .get("https://bolex-scandi-task.000webhostapp.com/display.php")
       .then((res) => {
         setProducts(res.data.productResult);
       })
@@ -27,7 +27,7 @@ export default function ProductList() {
 
   function massDelete() {
     axios
-      .post("https://bolu-scandi-task.000webhostapp.com/delete.php", {
+      .post("https://bolex-scandi-task.000webhostapp.com/delete.php", {
         checkBox: selected,
       })
       .then((res) => {
