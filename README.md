@@ -75,4 +75,4 @@ This project is a task for the junior developer role.
 
 #### Screenshot
 
-file:///home/junkie/product_list_page.png
+![Screenshot of Product List](./product_list_page.png)
