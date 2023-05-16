@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./AddProduct.css";
 export default function AddProduct() {
-  const [selected, setSelected] = useState("");
   const [sku, setSku] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -18,7 +17,6 @@ export default function AddProduct() {
 
   function addProduct() {
     const data = { name, sku, price, type: switcher };
-    let attribute = "";
     if (switcher === "book") {
       data.weight = Number(bookOption);
     } else if (switcher === "dvd") {

@@ -106,8 +106,8 @@ function Product({ data, select, selected }) {
         <p>{data.sku}</p>
         <p>{data.name}</p>
         <p>{data.price}</p>
-        {data.type === "dvd" && <p>Size: {data.size}</p>}
-        {data.type === "book" && <p>Weight: {data.weight}</p>}
+        {data.type === "dvd" && <p>Size: {data.size} MB </p>}
+        {data.type === "book" && <p>Weight: {data.weight} KG</p>}
         {data.type === "furniture" && (
           <p>Dimensions: {`${data.height} x ${data.width} x ${data.length}`}</p>
         )}
